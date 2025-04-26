@@ -4,12 +4,28 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed = 5;
+    [SerializeField] private float _hp;
+    [SerializeField] private ProjecttailOperator _operator;
     private Vector3 _input;
+    private float _actualHp;
     private void Update()
     {
         GatherInput();
         Look();
     }
+
+    private void Awake()
+    {
+        _actualHp = _hp;
+    }
+
+    public void REciveDamage(float damage)
+    {
+        _actualHp = _actualHp - damage;
+        _operator.UpdateHp(_actualHp / _hp);
+    }
+
+
     private void FixedUpdate()
     {
         Move();

@@ -1,14 +1,19 @@
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProjecttailOperator : MonoBehaviour
 {
     [SerializeField] private List<SphereTile> _spheres;
     [SerializeField] private List<PillarTile> _pillars;
     [SerializeField] private Enemy _enemy;
+    [SerializeField] private Player _player;
     [SerializeField] private float _sphereSpeed;
     [SerializeField] private float _pillarSpeed;
+    [SerializeField] private Slider _hpSlider;
+    [SerializeField] private GameObject _deathScreen;
+    [SerializeField] private GameObject _area;
 
     public SphereTile GetSphereFromPool()
     {
@@ -50,4 +55,20 @@ public class ProjecttailOperator : MonoBehaviour
         pillar.gameObject.SetActive(false);
     }
 
+    public void HitPlayer()
+    {
+        _player.REciveDamage(1);
+    }
+
+    public void UpdateHp(float hp)
+    {
+        _hpSlider.value = hp;
+        if (hp == 0) CallDeathScreen();
+    }
+
+    private void CallDeathScreen()
+    {
+        _area.SetActive(false);
+        _deathScreen.SetActive(true);
+    }
 }

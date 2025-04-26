@@ -37,6 +37,14 @@ public class SphereTile : Projecttile
 
     protected override void Hit()
     {
+        _operator.HitPlayer();
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag != "Player") 
+        {
+            Hit();
+        }
     }
 }
